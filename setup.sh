@@ -82,7 +82,12 @@ docker exec -it mongos mongo --quiet --eval "$ENABLESHARDING"
 sleep 5
 
 # increase log level
-docker exec -it mongos mongo --quiet --eval "printjson( db.adminCommand( { setParameter: 1, logLevel: 2 } ) );"
+# docker exec -it mongos mongo --quiet --eval "printjson( db.adminCommand( { setParameter: 1, logLevel: 2 } ) );"
+
+echo "#####################################"
+echo "MongoDB Cluster is now ready to use"
+echo "Connect to cluster:"
+echo "$ docker exec -it mongos mongo"
 
 # --------------
 
