@@ -48,7 +48,6 @@ Example output:
 	Starting mongo_cfg_2...
 	Starting mongo_cfg_3...
 	Starting mongos...
-	075e82eff8743d15e46cbf9fc040c4b3bd704ab0b9f74b9c073716313f9800da
 	{ "shardAdded" : "rs1", "ok" : 1 }
 	{ "shardAdded" : "rs2", "ok" : 1 }
 	{ "nInserted" : 1 }
@@ -71,8 +70,11 @@ Example output:
 	{ "collectionsharded" : "test.test", "ok" : 1 }
 	#####################################
 	MongoDB Cluster is now ready to use
-	Connect to cluster:
+	Connect to the cluster via docker:
 	$ docker exec -it mongos mongo
+	
+	Connect to the cluster via OS X:
+	$ mongo 192.168.59.103:27107
 	
 Connect to sharded cluster:
 

@@ -51,7 +51,7 @@ CFG3=$(docker inspect -f "{{ .NetworkSettings.IPAddress }}" mongo_cfg_3)
 
 # start a mongos node
 echo "Starting mongos..."
-docker run --name mongos -P -d mongo:$mongo_version mongos --configdb "$CFG1":27017,"$CFG2":27017,"$CFG3":27017 > /dev/null 2>&1
+docker run --name mongos -P -p 27017:27017 -d mongo:$mongo_version mongos --configdb "$CFG1":27017,"$CFG2":27017,"$CFG3":27017 > /dev/null 2>&1
 # docker run --name mongos -P -d mongo:"$mongo_version" mongos --configdb "$CFG1":27017,"$CFG2":27017,"$CFG3":27017 --setParameter userCacheInvalidationIntervalSecs=30
 
 # Wait for mongos node to start
@@ -86,8 +86,11 @@ sleep 5
 
 echo "#####################################"
 echo "MongoDB Cluster is now ready to use"
-echo "Connect to cluster:"
+echo "Connect to cluster via docker:"
 echo "$ docker exec -it mongos mongo"
+echo ""
+echo "Connect to cluster via OS X:"
+echo "$ mongo $(boot2docker ip):27107"
 
 # --------------
 
