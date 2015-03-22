@@ -51,8 +51,8 @@ CFG3=$(docker inspect -f "{{ .NetworkSettings.IPAddress }}" mongo_cfg_3)
 
 # start a mongos node
 echo "Starting mongos..."
-# docker run --name mongos -P -d mongo:$mongo_version mongos --configdb "$CFG1":27017,"$CFG2":27017,"$CFG3":27017 > /dev/null 2>&1
-docker run --name mongos -P -d mongo:"$mongo_version" mongos --configdb "$CFG1":27017,"$CFG2":27017,"$CFG3":27017 --setParameter userCacheInvalidationIntervalSecs=30
+docker run --name mongos -P -d mongo:$mongo_version mongos --configdb "$CFG1":27017,"$CFG2":27017,"$CFG3":27017 > /dev/null 2>&1
+# docker run --name mongos -P -d mongo:"$mongo_version" mongos --configdb "$CFG1":27017,"$CFG2":27017,"$CFG3":27017 --setParameter userCacheInvalidationIntervalSecs=30
 
 # Wait for mongos node to start
 sleep 5
