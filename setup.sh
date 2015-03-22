@@ -90,7 +90,7 @@ echo "Connect to cluster via docker:"
 echo "$ docker exec -it mongos mongo"
 echo ""
 echo "Connect to cluster via OS X:"
-echo "$ mongo $(boot2docker ip):27107"
+echo "$ mongo $(boot2docker ip)"
 
 # --------------
 

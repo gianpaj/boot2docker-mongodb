@@ -74,11 +74,11 @@ Example output:
 	$ docker exec -it mongos mongo
 	
 	Connect to the cluster via OS X:
-	$ mongo 192.168.59.103:27107
+	$ mongo 192.168.59.103
 	
-Connect to sharded cluster:
+Connect to the sharded cluster:
 
-	$ docker exec -it mongos mongo
+	$ mongo 192.168.59.103
 	MongoDB shell version: 3.0.0
 	connecting to: test
 	Welcome to the MongoDB shell.
