@@ -1,5 +1,8 @@
 # boot2docker-mongodb
-Bash script to start a MongoDB sharded cluster using docker on OS X (via boot2docker)
+
+Bash script to start a MongoDB sharded cluster using docker on OS X (via boot2docker). It uses IP addresses for container communication.
+
+Inspired by Alex Komyagin's [mongo-docker](https://github.com/adkomyagin/mongo-docker).
 
 Using official [docker image](https://registry.hub.docker.com/_/mongo/).
 
