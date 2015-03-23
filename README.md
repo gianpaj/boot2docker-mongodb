@@ -155,6 +155,21 @@ You should now be able connect to the new sharded cluster via the mongos node:
 					rs2	1
 				{ "_id" : { "$minKey" : 1 } } -->> { "_id" : { "$maxKey" : 1 } } on : rs2 Timestamp(1, 0)
 
+## List docker containers
+
+	$ docker ps
+	CONTAINER ID        IMAGE               COMMAND                CREATED             STATUS              PORTS                      NAMES
+	29ab8a7ace17        mongo:latest        "/entrypoint.sh mong   3 hours ago         Up 3 hours          0.0.0.0:27017->27017/tcp   mongos
+	a285db10a9c9        mongo:latest        "/entrypoint.sh mong   3 hours ago         Up 3 hours          27017/tcp                  mongo_cfg_3
+	ea6c65693796        mongo:latest        "/entrypoint.sh mong   3 hours ago         Up 3 hours          27017/tcp                  mongo_cfg_2
+	7ff53954aa89        mongo:latest        "/entrypoint.sh mong   3 hours ago         Up 3 hours          27017/tcp                  mongo_cfg_1
+	3abf28cbe965        mongo:latest        "/entrypoint.sh mong   3 hours ago         Up 3 hours          27017/tcp                  mongo_rs2_2
+	4b6532f484f6        mongo:latest        "/entrypoint.sh mong   3 hours ago         Up 3 hours          27017/tcp                  mongo_rs2_3
+	d885bfae4069        mongo:latest        "/entrypoint.sh mong   3 hours ago         Up 3 hours          27017/tcp                  mongo_rs2_1
+	ede4197d5086        mongo:latest        "/entrypoint.sh mong   3 hours ago         Up 3 hours          27017/tcp                  mongo_rs1_3
+	0c2cabc5a65b        mongo:latest        "/entrypoint.sh mong   3 hours ago         Up 3 hours          27017/tcp                  mongo_rs1_2
+	f2e58d9b3201        mongo:latest        "/entrypoint.sh mong   3 hours ago         Up 3 hours          27017/tcp                  mongo_rs1_1
+
 
 ## Built upon
 
