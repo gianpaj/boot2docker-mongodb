@@ -4,8 +4,8 @@ $(boot2docker shellinit)
 
 # export DOCKERIP="192.168.59.103"
 
-# mongodb container tag (ie. latest)
-mongo_version=latest
+# mongodb container tag (ie. latest) - you need to change the 'image' field in docker-compose.yml as well
+mongo_version=2.6.8
 
 # Clean up
 containers=( mongo_rs1_1 mongo_rs1_2 mongo_rs1_3 mongo_rs2_1 mongo_rs2_2 mongo_rs2_3 mongo_cfg_1 mongo_cfg_2 mongo_cfg_3 mongos )
@@ -51,8 +51,8 @@ CFG3=$(docker inspect -f "{{ .NetworkSettings.IPAddress }}" mongo_cfg_3)
 
 # start a mongos node
 echo "Starting mongos..."
-docker run --name mongos -P -p 27017:27017 -d mongo:$mongo_version mongos --configdb "$CFG1":27017,"$CFG2":27017,"$CFG3":27017 > /dev/null 2>&1
-# docker run --name mongos -P -d mongo:"$mongo_version" mongos --configdb "$CFG1":27017,"$CFG2":27017,"$CFG3":27017 --setParameter userCacheInvalidationIntervalSecs=30
+# docker run --name mongos -P -p 27017:27017 -d mongo:$mongo_version mongos --configdb "$CFG1":27017,"$CFG2":27017,"$CFG3":27017 > /dev/null 2>&1
+docker run --name mongos -P -p 27017:27017 -d mongo:"$mongo_version" mongos --configdb "$CFG1":27017,"$CFG2":27017,"$CFG3":27017 --setParameter userCacheInvalidationIntervalSecs=30
 
 # Wait for mongos node to start
 sleep 5
@@ -64,7 +64,7 @@ EOM
 
 # echo $ADDSHARDS
 
-docker exec -it mongos mongo --quiet --eval "$ADDSHARDS"
+docker exec -it mongos:"$mongo_version" mongo --quiet --eval "$ADDSHARDS"
 
 # Wait for addShards to be completed
 sleep 5
@@ -76,13 +76,13 @@ read -r -d '' ENABLESHARDING <<- EOM
 	printjson( sh.shardCollection( "test.test", { _id: "hashed" } ) );
 EOM
 
-docker exec -it mongos mongo --quiet --eval "$ENABLESHARDING"
+docker exec -it mongos:"$mongo_version" mongo --quiet --eval "$ENABLESHARDING"
 
 # Wait for sharding to be enabled
 sleep 5
 
 # increase log level
-# docker exec -it mongos mongo --quiet --eval "printjson( db.adminCommand( { setParameter: 1, logLevel: 2 } ) );"
+# docker exec -it mongos:"$mongo_version" mongo --quiet --eval "printjson( db.adminCommand( { setParameter: 1, logLevel: 2 } ) );"
 
 echo "#####################################"
 echo "MongoDB Cluster is now ready to use"
@@ -94,16 +94,19 @@ echo "$ mongo $(boot2docker ip)"
 
 # --------------
 
+: '
 # install iptables on 3rd config srv
-# docker exec -it mongo_cfg_3 bash
-# $ apt-get update -qq && apt-get install -yqq iptables
+docker exec -it mongo_cfg_3 bash
+apt-get update -qq && apt-get install -yqq iptables
 
-# block connections
-# $ iptables -A INPUT -j DROP
-# $ iptables -A OUTPUT -j DROP
+# block connections (you might need to wait 30 secs until the mongos realises the config srv is down)
+iptables -A INPUT -j DROP
+iptables -A OUTPUT -j DROP
 
 # unblock connections
-# $ iptables -F
+iptables -F
 
-# grep config srv logs (this can slow down operations)
-# docker logs -f mongos | grep $(docker inspect -f "{{ .NetworkSettings.IPAddress }}" mongo_cfg_3)
+# check from mongos log that config server is down (this can slow down operations)
+docker logs -f mongos | grep $(docker inspect -f "{{ .NetworkSettings.IPAddress }}" mongo_cfg_3)
+'
+ 
