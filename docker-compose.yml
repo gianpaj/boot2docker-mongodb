@@ -1,17 +1,1 @@
-rs1:
-    image: mongo
-    name: rs1
-    privileged: true
-    command: mongod --noprealloc --smallfiles --replSet rs1
-
-rs2:
-    image: mongo
-    name: rs2
-    privileged: true
-    command: mongod --noprealloc --smallfiles --replSet rs2
-
-cfg:
-    image: mongo
-    name: cfg
-    privileged: true
-    command: mongod --noprealloc --smallfiles --configsvr --port 27017 --dbpath /data/db
+docker-compose.auth300.yml

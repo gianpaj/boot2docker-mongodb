@@ -1,0 +1,17 @@
+rs1:
+    image: mongo:2.6.8
+    name: rs1
+    privileged: true
+    command: mongod --noprealloc --smallfiles --replSet rs1
+
+rs2:
+    image: mongo:2.6.8
+    name: rs2
+    privileged: true
+    command: mongod --noprealloc --smallfiles --replSet rs2
+
+cfg:
+    image: mongo:2.6.8
+    name: cfg
+    privileged: true
+    command: mongod --noprealloc --smallfiles --configsvr --port 27017 --dbpath /data/db

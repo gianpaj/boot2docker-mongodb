@@ -1,0 +1,17 @@
+rs1:
+    image: gianpaj/boot2docker_3.0.0
+    name: rs1
+    privileged: true
+    command: mongod --noprealloc --smallfiles --replSet rs1 --keyFile /opt/keyfile
+
+rs2:
+    image: gianpaj/boot2docker_3.0.0
+    name: rs2
+    privileged: true
+    command: mongod --noprealloc --smallfiles --replSet rs2 --keyFile /opt/keyfile
+
+cfg:
+    image: gianpaj/boot2docker_3.0.0
+    name: cfg
+    privileged: true
+    command: mongod --noprealloc --smallfiles --configsvr --port 27017 --dbpath /data/db --keyFile /opt/keyfile
