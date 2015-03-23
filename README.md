@@ -170,6 +170,13 @@ You should now be able connect to the new sharded cluster via the mongos node:
 	0c2cabc5a65b        mongo:latest        "/entrypoint.sh mong   3 hours ago         Up 3 hours          27017/tcp                  mongo_rs1_2
 	f2e58d9b3201        mongo:latest        "/entrypoint.sh mong   3 hours ago         Up 3 hours          27017/tcp                  mongo_rs1_1
 
+## Auth
+
+```bash
+ln -s docker-compose.auth300.yml docker-compose.yml
+ln Dockerfiles/30auth Dockerfile
+docker build -t gianpaj/boot2docker_3.0.0 -f Dockerfile .
+```
 
 ## Built upon
 
