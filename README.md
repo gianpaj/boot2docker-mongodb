@@ -4,17 +4,7 @@ Bash script to start a MongoDB sharded cluster using docker on OS X (via [boot2d
 
 Inspired by Alex Komyagin's [mongo-docker](https://github.com/adkomyagin/mongo-docker).
 
-Using official [docker image](https://registry.hub.docker.com/_/mongo/).
-
-Requirements:
-
-- Virtualbox
-- docker
-- boot2docker
-- [docker-compose](http://docs.docker.com/compose/install/)
-
-Follow this tutorial to install the requirements:
-[http://blog.javabien.net/2014/03/03/setup-docker-on-osx-the-no-brainer-way/](http://blog.javabien.net/2014/03/03/setup-docker-on-osx-the-no-brainer-way/)
+Using official [MongoDB docker image](https://registry.hub.docker.com/_/mongo/).
 
 Current setup:
 
@@ -22,11 +12,47 @@ Current setup:
 - 3 config servers
 - 1 mongos node
 
-Get started:
+## Installation on Mac:
+
+### Install Homebrew
+First, install [Homebrew](http://brew.sh/).
+
+```bash
+ruby -e "$(curl -fsSL https://raw.github.com/mxcl/homebrew/go)"
+```
+
+### Install Virtualbox
+Install VirtualBox using [Brew Cask](https://github.com/phinze/homebrew-cask).
+
+```bash
+brew update
+brew tap phinze/homebrew-cask
+brew install brew-cask
+brew cask install virtualbox
+```
+
+### Install boot2docker and docker-compose
+
+Boot2docker is a small script that helps download and setup a minimal Linux VM that will be in charge of running docker daemon.
+
+```bash
+brew install boot2docker
+boot2docker init
+boot2docker up
+brew install docker-compose
+```
+
+## Check out the repository
 
 ```bash
 git clone git@github.com:gianpaj/boot2docker-mongodb.git
 cd boot2docker-mongodb
+```
+
+## Setup Cluster
+This will pull the official [MongoDB image](https://registry.hub.docker.com/_/mongo/) and setup a sharded cluster.
+
+```bash
 source setup.sh
 ```
 
@@ -86,7 +112,10 @@ Example output:
 	Connect to the cluster via OS X:
 	$ mongo 192.168.59.103
 	
-Connect to the sharded cluster:
+## Connect to the sharded cluster
+
+You should now be able connect to the new sharded cluster via the mongos node:
+
 
 	$ mongo 192.168.59.103
 	MongoDB shell version: 3.0.0
@@ -125,3 +154,10 @@ Connect to the sharded cluster:
 				chunks:
 					rs2	1
 				{ "_id" : { "$minKey" : 1 } } -->> { "_id" : { "$maxKey" : 1 } } on : rs2 Timestamp(1, 0)
+
+
+## Built upon
+
+- [docker](https://github.com/docker/docker)
+- [boot2docker](https://github.com/boot2docker/boot2docker)
+- [docker-compose](http://docs.docker.com/compose/install/)
