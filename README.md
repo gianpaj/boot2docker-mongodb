@@ -1,5 +1,7 @@
 # boot2docker-mongodb
 
+[![Join the chat at https://gitter.im/gianpaj/boot2docker-mongodb](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/gianpaj/boot2docker-mongodb?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+
 Bash script to start a MongoDB sharded cluster using docker on OS X (via [boot2docker](https://github.com/boot2docker/boot2docker)). It uses IP addresses for container communication.
 
 Inspired by Alex Komyagin's [mongo-docker](https://github.com/adkomyagin/mongo-docker).
